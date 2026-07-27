@@ -1,1 +1,0 @@
-import{j as s}from"./jsx-runtime.BftctW7E.js";import"./index.DJO9vBfz.js";function a(){return s.jsxs("div",{className:"space-y-4",children:[s.jsx("h2",{className:"text-2xl font-bold",children:"Presupuestos"}),s.jsx("p",{className:"text-gray-500",children:"Control de gastos por categoría"})]})}export{a as default};
