@@ -1,1 +1,0 @@
-import{j as t}from"./jsx-runtime.BftctW7E.js";import{a as i,Q as o}from"./QueryClientProvider.D5D0PFRg.js";import{r as s}from"./index.DJO9vBfz.js";function m({children:e}){const[r]=s.useState(()=>new i({defaultOptions:{queries:{staleTime:3e5,gcTime:18e5,refetchOnWindowFocus:!1,retry:1}}}));return t.jsx(o,{client:r,children:e})}export{m as QueryProvider};
