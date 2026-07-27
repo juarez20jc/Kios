@@ -11,6 +11,9 @@ export default defineConfig({
   // URL pública de tu sitio
   site: 'https://juarez20jc.github.io/Kios',
 
+  // Base path para GitHub Pages (repo name)
+  base: '/Kios/',
+
   // Integraciones oficiales de Astro
   integrations: [
     react(),      // Habilita componentes React (.tsx) como "islands" interactivas
