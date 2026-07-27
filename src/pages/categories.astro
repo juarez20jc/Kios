@@ -1,0 +1,11 @@
+---
+// src/pages/categories.astro
+import MainLayout from '@/layouts/MainLayout.astro';
+import CategoriesIsland from '@/components/islands/CategoriesIsland';
+---
+
+<MainLayout title="Kios — Categorías">
+  <main class="min-h-screen">
+    <CategoriesIsland client:visible />
+  </main>
+</MainLayout>

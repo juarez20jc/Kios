@@ -1,0 +1,25 @@
+---
+// src/pages/auth.astro
+// Login / Register — sin MainLayout (pantalla completa)
+import AuthIsland from '@/components/islands/AuthIsland';
+---
+
+<!doctype html>
+<html lang="es" class="h-full">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Acceso — Kios</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body class="h-full bg-background-light dark:bg-background-dark">
+    <AuthIsland client:load />
+    <script is:inline>
+      (function() {
+        const saved = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.classList.toggle('dark', saved ? saved === 'dark' : prefersDark);
+      })();
+    </script>
+  </body>
+</html>

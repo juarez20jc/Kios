@@ -1,0 +1,11 @@
+---
+// src/pages/budgets.astro
+import MainLayout from '@/layouts/MainLayout.astro';
+import BudgetsIsland from '@/components/islands/BudgetsIsland';
+---
+
+<MainLayout title="Kios — Presupuestos">
+  <main class="min-h-screen">
+    <BudgetsIsland client:visible />
+  </main>
+</MainLayout>

@@ -1,0 +1,11 @@
+---
+// src/pages/settings.astro
+import MainLayout from '@/layouts/MainLayout.astro';
+import SettingsIsland from '@/components/islands/SettingsIsland';
+---
+
+<MainLayout title="Kios — Ajustes">
+  <main class="min-h-screen">
+    <SettingsIsland client:visible />
+  </main>
+</MainLayout>

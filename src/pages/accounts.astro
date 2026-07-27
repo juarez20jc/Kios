@@ -1,0 +1,11 @@
+---
+// src/pages/accounts.astro
+import MainLayout from '@/layouts/MainLayout.astro';
+import AccountsIsland from '@/components/islands/AccountsIsland';
+---
+
+<MainLayout title="Kios — Cuentas">
+  <main class="min-h-screen">
+    <AccountsIsland client:visible />
+  </main>
+</MainLayout>

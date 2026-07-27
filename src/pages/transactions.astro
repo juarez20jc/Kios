@@ -1,0 +1,11 @@
+---
+// src/pages/transactions.astro
+import MainLayout from '@/layouts/MainLayout.astro';
+import TransactionsIsland from '@/components/islands/TransactionsIsland';
+---
+
+<MainLayout title="Kios — Movimientos">
+  <main class="min-h-screen">
+    <TransactionsIsland client:visible />
+  </main>
+</MainLayout>

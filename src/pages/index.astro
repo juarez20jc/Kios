@@ -1,0 +1,12 @@
+---
+// src/pages/index.astro
+// Dashboard principal — hidrata DashboardIsland
+import MainLayout from '@/layouts/MainLayout.astro';
+import DashboardIsland from '@/components/islands/DashboardIsland';
+---
+
+<MainLayout title="Kios — Dashboard">
+  <main class="min-h-screen">
+    <DashboardIsland client:visible />
+  </main>
+</MainLayout>
