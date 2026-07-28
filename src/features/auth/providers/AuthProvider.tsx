@@ -2,7 +2,8 @@
 'use client';
 
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
-import type { User, Session, AuthChangeEvent, SupabaseClient } from '@supabase/supabase-js';
+import type { User, Session, AuthChangeEvent } from '@supabase/supabase-js';
+import { getSupabaseClient } from '@/shared/lib/supabase/client';
 
 interface AuthContextType {
   user: User | null;
@@ -15,20 +16,6 @@ interface AuthContextType {
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
-
-// Cliente Supabase lazy
-let supabaseClient: SupabaseClient | null = null;
-
-function getSupabaseClient(): SupabaseClient | null {
-  if (supabaseClient) return supabaseClient;
-  try {
-    const { supabase } = require('@/shared/lib/supabase/client');
-    supabaseClient = supabase;
-    return supabaseClient;
-  } catch {
-    return null;
-  }
-}
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
@@ -43,8 +30,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
 
     supabase.auth.getSession()
-      .then(({ data: sessionData }) => {
-        const session = sessionData?.session ?? null;
+      .then(({ data }: { data: { session: Session | null } }) => {
+        const session = data?.session ?? null;
         setSession(session);
         setUser(session?.user ?? null);
       })
