@@ -7,23 +7,26 @@ import { Button } from '@/shared/components/ui/button';
 import { Input } from '@/shared/components/ui/input';
 import { Label } from '@/shared/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui/card';
-import { Eye, EyeOff, Loader2, Lock, Mail, User } from 'lucide-react';
+import { Eye, EyeOff, Loader2, Lock, Mail } from 'lucide-react';
 import { cn } from '@/shared/lib/utils/cn';
 
 export function AuthView() {
-  const { signIn, signUp, loading } = useAuth();
+  const { signIn, signUp } = useAuth();
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
+    setSubmitting(true);
     const fn = isLogin ? signIn : signUp;
     const { error: err } = await fn(email, password);
     if (err) setError(err.message);
+    setSubmitting(false);
   };
 
   const toggleMode = () => {
@@ -81,7 +84,7 @@ export function AuthView() {
                   placeholder="tu@email.com"
                   required
                   autoComplete="email"
-                  disabled={loading}
+                  disabled={submitting}
                   className="pl-10"
                 />
               </div>
@@ -101,7 +104,7 @@ export function AuthView() {
                   placeholder="••••••••"
                   required
                   autoComplete={isLogin ? 'current-password' : 'new-password'}
-                  disabled={loading}
+                  disabled={submitting}
                   className="pl-10 pr-10"
                 />
                 <button
@@ -115,8 +118,8 @@ export function AuthView() {
               </div>
             </div>
 
-            <Button type="submit" className="w-full py-3 rounded-xl text-base font-medium" disabled={loading}>
-              {loading ? (
+            <Button type="submit" className="w-full py-3 rounded-xl text-base font-medium" disabled={submitting}>
+              {submitting ? (
                 <span className="flex items-center justify-center gap-2">
                   <Loader2 className="w-5 h-5 animate-spin" />
                   {isLogin ? 'Entrando...' : 'Creando cuenta...'}

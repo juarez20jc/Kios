@@ -37,14 +37,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const supabase = getSupabaseClient();
-    if (!supabase) return;
-
-    supabase.auth.getSession().then(({ data: sessionData }) => {
-      const session = sessionData?.session ?? null;
-      setSession(session);
-      setUser(session?.user ?? null);
+    if (!supabase) {
       setLoading(false);
-    });
+      return;
+    }
+
+    supabase.auth.getSession()
+      .then(({ data: sessionData }) => {
+        const session = sessionData?.session ?? null;
+        setSession(session);
+        setUser(session?.user ?? null);
+      })
+      .catch(() => {
+        setSession(null);
+        setUser(null);
+      })
+      .finally(() => setLoading(false));
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (_event: AuthChangeEvent, session: Session | null) => {

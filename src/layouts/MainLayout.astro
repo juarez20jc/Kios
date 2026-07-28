@@ -15,35 +15,28 @@ import { QueryProvider } from '@/shared/lib/query/provider';
     <meta name="description" content="Kios - Gestor de finanzas personal inspirado en Monefy. Simple, rápido, privado." />
   </head>
   <body class="h-full bg-background-light dark:bg-background-dark text-text-primary antialiased">
-    <!-- Providers (React Islands) -->
     <QueryProvider client:load>
-      <slot />
+      <div class="flex flex-col h-full min-h-screen">
+        <header class="sticky top-0 z-40 w-full bg-surface-light/80 dark:bg-surface-dark/80 backdrop-blur-sm border-b border-border-light dark:border-border-dark">
+          <div class="mx-auto max-w-screen-xl px-4 h-16 flex items-center justify-between">
+            <h1 class="text-xl font-bold text-primary-600 dark:text-primary-400">Kios</h1>
+            <nav class="flex items-center gap-4">
+              <a href="/Kios/transactions" class="text-sm font-medium text-text-secondary hover:text-text-primary">Movimientos</a>
+              <a href="/Kios/accounts" class="text-sm font-medium text-text-secondary hover:text-text-primary">Cuentas</a>
+              <a href="/Kios/budgets" class="text-sm font-medium text-text-secondary hover:text-text-primary">Presupuestos</a>
+            </nav>
+          </div>
+        </header>
+
+        <main class="flex-1 w-full mx-auto">
+          <slot />
+        </main>
+
+        <footer class="border-t border-border-light dark:border-border-dark py-4 text-center text-sm text-text-muted">
+          <p>Kios v0.1 — <a href="https://github.com/juarez20jc/Kios" target="_blank" rel="noopener" class="underline hover:text-primary-600">GitHub</a></p>
+        </footer>
+      </div>
     </QueryProvider>
-
-    <!-- App Shell -->
-    <div class="flex flex-col h-full min-h-screen">
-      <!-- Header fijo -->
-      <header class="sticky top-0 z-40 w-full bg-surface-light/80 dark:bg-surface-dark/80 backdrop-blur-sm border-b border-border-light dark:border-border-dark">
-        <div class="mx-auto max-w-screen-xl px-4 h-16 flex items-center justify-between">
-          <h1 class="text-xl font-bold text-primary-600 dark:text-primary-400">Kios</h1>
-          <nav class="flex items-center gap-4">
-            <a href="/transactions" class="text-sm font-medium text-text-secondary hover:text-text-primary dark:hover:text-text-primary">Movimientos</a>
-            <a href="/accounts" class="text-sm font-medium text-text-secondary hover:text-text-primary dark:hover:text-text-primary">Cuentas</a>
-            <a href="/budgets" class="text-sm font-medium text-text-secondary hover:text-text-primary dark:hover:text-text-primary">Presupuestos</a>
-          </nav>
-        </div>
-      </header>
-
-      <!-- Contenido principal -->
-      <main class="flex-1 w-full max-w-screen-xl mx-auto px-4 py-6">
-        <slot />
-      </main>
-
-      <!-- Footer simple -->
-      <footer class="border-t border-border-light dark:border-border-dark py-4 text-center text-sm text-text-muted">
-        <p>Kios v0.1 — <a href="https://github.com/TU_USUARIO/Kios" target="_blank" rel="noopener" class="underline hover:text-primary-600">GitHub</a></p>
-      </footer>
-    </div>
 
     <!-- Script para theme toggle (persistido en localStorage) -->
     <script is:inline>

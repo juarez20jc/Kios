@@ -1,6 +1,4 @@
-// src/features/dashboard/components/RecentTransactions.tsx
-import { formatCurrency } from '@/shared/lib/utils/format';
-import { formatDateShort } from '@/shared/lib/utils/format';
+import { formatCurrency, formatDateShort } from '@/shared/lib/utils/format';
 
 const RECENT_TXNS = [
   { id: '1', description: 'Supermercado', amount: -85.5, category: 'Comida', date: '2024-01-15', icon: '🍕' },
@@ -12,24 +10,22 @@ const RECENT_TXNS = [
 
 export function RecentTransactions() {
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-card">
+    <div className="mx-4 bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-card border border-border-light dark:border-border-dark">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-semibold">Últimos movimientos</h3>
-        <a href="/transactions" className="text-sm text-primary-600 hover:underline">Ver todos</a>
+        <h3 className="text-base font-semibold">Últimos movimientos</h3>
+        <a href="/Kios/transactions" className="text-xs font-medium text-primary-600 dark:text-primary-400 hover:underline">Ver todos</a>
       </div>
-      <div className="space-y-3">
+      <div className="space-y-1">
         {RECENT_TXNS.map((txn) => (
-          <div key={txn.id} className="flex items-center justify-between py-2 border-b border-gray-100 dark:border-gray-700 last:border-0">
+          <div key={txn.id} className="flex items-center justify-between py-3 border-b border-border-light dark:border-border-dark last:border-0">
             <div className="flex items-center gap-3">
-              <span className="text-2xl">{txn.icon}</span>
+              <span className="text-xl">{txn.icon}</span>
               <div>
-                <p className="font-medium">{txn.description}</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
-                  {txn.category} · {formatDateShort(txn.date)}
-                </p>
+                <p className="text-sm font-medium text-text-primary">{txn.description}</p>
+                <p className="text-xs text-text-muted">{txn.category} · {formatDateShort(txn.date)}</p>
               </div>
             </div>
-            <span className={txn.amount >= 0 ? 'text-green-600' : 'text-red-600'}>
+            <span className={`text-sm font-semibold ${txn.amount >= 0 ? 'text-green-600' : 'text-red-600'}`}>
               {txn.amount >= 0 ? '+' : ''}{formatCurrency(txn.amount)}
             </span>
           </div>
