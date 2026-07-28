@@ -1,7 +1,6 @@
 ---
-// src/layouts/MainLayout.astro
-// Layout principal: HTML shell + providers + header/bottom-nav
 import { QueryProvider } from '@/shared/lib/query/provider';
+import ThemeToggle from '@/components/islands/ThemeToggle';
 ---
 
 <!doctype html>
@@ -20,10 +19,11 @@ import { QueryProvider } from '@/shared/lib/query/provider';
         <header class="sticky top-0 z-40 w-full bg-surface-light/80 dark:bg-surface-dark/80 backdrop-blur-sm border-b border-border-light dark:border-border-dark">
           <div class="mx-auto max-w-screen-xl px-4 h-16 flex items-center justify-between">
             <h1 class="text-xl font-bold text-primary-600 dark:text-primary-400">Kios</h1>
-            <nav class="flex items-center gap-4">
-              <a href="/Kios/transactions" class="text-sm font-medium text-text-secondary hover:text-text-primary">Movimientos</a>
-              <a href="/Kios/accounts" class="text-sm font-medium text-text-secondary hover:text-text-primary">Cuentas</a>
-              <a href="/Kios/budgets" class="text-sm font-medium text-text-secondary hover:text-text-primary">Presupuestos</a>
+            <nav class="flex items-center gap-2">
+              <a href="/Kios/transactions" class="text-sm font-medium text-text-secondary hover:text-text-primary hidden sm:inline">Movimientos</a>
+              <a href="/Kios/accounts" class="text-sm font-medium text-text-secondary hover:text-text-primary hidden sm:inline">Cuentas</a>
+              <a href="/Kios/budgets" class="text-sm font-medium text-text-secondary hover:text-text-primary hidden sm:inline">Presupuestos</a>
+              <ThemeToggle client:load />
             </nav>
           </div>
         </header>
