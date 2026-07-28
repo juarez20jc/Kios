@@ -25,8 +25,12 @@ export function AuthView() {
     setSubmitting(true);
     const fn = isLogin ? signIn : signUp;
     const { error: err } = await fn(email, password);
-    if (err) setError(err.message);
-    setSubmitting(false);
+    if (err) {
+      setError(err.message);
+      setSubmitting(false);
+    } else {
+      window.location.href = '/Kios/';
+    }
   };
 
   const toggleMode = () => {
