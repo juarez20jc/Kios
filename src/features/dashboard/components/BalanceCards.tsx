@@ -1,26 +1,65 @@
+import { Plus, Wallet } from 'lucide-react';
 import { formatCurrency } from '@/shared/lib/utils/format';
-import { Wallet, CreditCard, PiggyBank, TrendingUp } from 'lucide-react';
-
-const ACCOUNTS = [
-  { title: 'Efectivo', balance: 285.5, icon: <Wallet className="w-5 h-5" />, color: 'bg-green-500', textColor: 'text-green-600 dark:text-green-400' },
-  { title: 'Tarjeta Débito', balance: 1240.0, icon: <CreditCard className="w-5 h-5" />, color: 'bg-blue-500', textColor: 'text-blue-600 dark:text-blue-400' },
-  { title: 'Ahorros', balance: 5000, icon: <PiggyBank className="w-5 h-5" />, color: 'bg-purple-500', textColor: 'text-purple-600 dark:text-purple-400' },
-  { title: 'Inversiones', balance: 3200, icon: <TrendingUp className="w-5 h-5" />, color: 'bg-orange-500', textColor: 'text-orange-600 dark:text-orange-400' },
-];
+import { useAccounts } from '@/features/accounts/hooks/useAccounts';
 
 export function BalanceCards() {
-  const total = ACCOUNTS.reduce((sum, a) => sum + a.balance, 0);
+  const { data: accounts, isLoading, error } = useAccounts();
+
+  if (isLoading) {
+    return (
+      <div className="px-4 space-y-3">
+        <div className="flex gap-3 overflow-x-auto pb-2 -mx-4 px-4">
+          {[1, 2, 3].map(i => (
+            <div key={i} className="flex-shrink-0 w-36 bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-card animate-pulse">
+              <div className="w-9 h-9 rounded-xl bg-gray-200 dark:bg-gray-700 mb-3" />
+              <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-16 mb-2" />
+              <div className="h-5 bg-gray-200 dark:bg-gray-700 rounded w-24" />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="px-4 text-center text-sm text-red-500 py-4">
+        Error al cargar cuentas
+      </div>
+    );
+  }
+
+  const total = (accounts || []).reduce((sum, a) => sum + Number(a.balance), 0);
+
+  if (!accounts || accounts.length === 0) {
+    return (
+      <div className="px-4 space-y-3">
+        <div className="mx-4 bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-card border border-dashed border-border-light dark:border-border-dark text-center">
+          <p className="text-text-muted text-sm mb-3">No tienes cuentas todavía</p>
+          <a href="/Kios/accounts" className="inline-flex items-center gap-1.5 text-sm font-medium text-primary-600 dark:text-primary-400 hover:underline">
+            <Plus className="w-4 h-4" />
+            Crear primera cuenta
+          </a>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="px-4 space-y-3">
       <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide -mx-4 px-4">
-        {ACCOUNTS.map((acc) => (
-          <div key={acc.title} className="flex-shrink-0 w-36 bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-card border border-border-light dark:border-border-dark">
-            <div className={`w-9 h-9 rounded-xl ${acc.color} flex items-center justify-center text-white mb-3`}>
-              {acc.icon}
+        {accounts.map(acc => (
+          <div key={acc.id} className="flex-shrink-0 w-36 bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-card border border-border-light dark:border-border-dark">
+            <div
+              className="w-9 h-9 rounded-xl flex items-center justify-center text-white mb-3"
+              style={{ backgroundColor: acc.color || '#64748b' }}
+            >
+              <Wallet className="w-5 h-5" />
             </div>
-            <p className="text-xs text-text-muted mb-1">{acc.title}</p>
-            <p className={`text-lg font-bold ${acc.textColor}`}>{formatCurrency(acc.balance)}</p>
+            <p className="text-xs text-text-muted mb-1">{acc.name}</p>
+            <p className="text-lg font-bold" style={{ color: acc.color || '#64748b' }}>
+              {formatCurrency(Number(acc.balance))}
+            </p>
           </div>
         ))}
       </div>
